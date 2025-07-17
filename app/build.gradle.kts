@@ -19,6 +19,13 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
+    implementation("org.joml:joml:1.10.5") 
+    implementation("org.apache.commons:commons-geometry-euclidean:1.0")
+    implementation("org.threeten:threeten-extra:1.7.2")
+
+    // Тесты
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testImplementation("junit:junit:4.13.2")
 }
 
 testing {

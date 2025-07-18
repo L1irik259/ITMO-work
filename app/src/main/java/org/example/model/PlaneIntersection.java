@@ -1,5 +1,6 @@
 package org.example.model;
 
+// Этот класс отвечает за то, что в нем хранятся методы по нахождению координат октаэдора 
 public class PlaneIntersection {
     /**
      * Вычисляет координаты точки в 3D-пространстве, где вектор от начала координат
@@ -23,6 +24,27 @@ public class PlaneIntersection {
         double zAnswer = length * sinThetaXY;
 
         return new Point3D (xAnswer, yAnswer, zAnswer);
+    }
+
+    /**
+     * Вычисляет координаты точки E для вектора OE с заданной длиной и углами.
+     * @param length длина вектора OE
+     * @param theta азимутальный угол (в радианах, в плоскости XY)
+     * @param phi полярный угол (в радианах, от оси Z)
+     * @return Point3D координаты точки E
+     * @throws IllegalArgumentException если длина отрицательная
+     */
+    public static Point3D computeVectorPoint(double length, double theta, double phi) {
+        if (length < 0) {
+            throw new IllegalArgumentException("Length must be non-negative");
+        }
+
+        // Вычисляем координаты в сферической системе
+        double x = length * Math.sin(phi) * Math.cos(theta);
+        double y = length * Math.sin(phi) * Math.sin(theta);
+        double z = length * Math.cos(phi);
+
+        return new Point3D(x, y, z);
     }
 
     /**
@@ -76,10 +98,6 @@ public class PlaneIntersection {
     public static Point3D findPointWithAngle(Point3D H, Point3D P, double alpha, double length) {
         // Проверка расстояния до начала координат
         double normH = Math.sqrt(H.getX() * H.getX() + H.getY() * H.getY() + H.getZ() * H.getZ());
-        double normP = Math.sqrt(P.getX() * P.getX() + P.getY() * P.getY() + P.getZ() * P.getZ());
-        if (Math.abs(normH - 1.0) > 1e-10 || Math.abs(normP - 1.0) > 1e-10) {
-            throw new IllegalArgumentException("Расстояние от точек H или P до начала координат не равно 1!");
-        }
 
         // Проверка корректности угла alpha (0 <= alpha <= pi)
         if (alpha < 0 || alpha > Math.PI) {

@@ -1,6 +1,10 @@
 package org.example.model;
 
 public class CheckingIntersectionOctahedra {
+    // Один из методов, который помогает узнать, есть ли пересечерия у октаэдоров 
+    // Берем по 8 треугольников у каждого октаэдора и проверяем их треугольники на пересечения
+    // true -- не пеерсекаются, все хорошо 
+    // false -- пересекаются
     public boolean checkingIntersectionOctahedra(Octahedron octahedron1, Octahedron octahedron2) {
         Triangle[] trianglesoctahedron1 = {
             new Triangle(octahedron1.getPointA(), octahedron1.getPointB(), octahedron1.getPointE()), // ABE

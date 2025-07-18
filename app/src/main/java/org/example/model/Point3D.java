@@ -26,6 +26,13 @@ public class Point3D {
         return "(" + x + ", " + y + ", " + z + ")";
     }
 
+    // метод сложения точек в 3da
+    public void sum(Point3D secondElement) {
+        this.x += secondElement.x;
+        this.y += secondElement.y;
+        this.z += secondElement.z;
+    }
+
     // Функция для вычисления векторного произведения
     public static Point3D crossProduct(Point3D v1, Point3D v2) {
         return new Point3D(

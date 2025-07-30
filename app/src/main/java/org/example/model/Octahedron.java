@@ -1,5 +1,8 @@
 package org.example.model;
 
+import org.example.workWithPointsOctahedron.CheckingIntersectionOctahedra;
+import org.example.workWithPointsOctahedron.PlaneIntersection;
+
 public class Octahedron {
     private double x;
     private double y;

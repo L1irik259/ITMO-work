@@ -1,4 +1,7 @@
-package org.example.model;
+package org.example.workWithPointsOctahedron;
+
+import org.example.model.Octahedron;
+import org.example.model.Triangle;
 
 public class CheckingIntersectionOctahedra {
     // Один из методов, который помогает узнать, есть ли пересечерия у октаэдоров 

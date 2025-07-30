@@ -1,4 +1,6 @@
-package org.example.model;
+package org.example.workWithPointsOctahedron;
+
+import org.example.model.Point3D;
 
 // Этот класс отвечает за то, что в нем хранятся методы по нахождению координат октаэдора 
 public class PlaneIntersection {

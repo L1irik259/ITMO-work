@@ -1,5 +1,7 @@
 package org.example.model;
 
+import java.util.Locale;
+
 import org.example.workWithPointsOctahedron.CheckingIntersectionOctahedra;
 import org.example.workWithPointsOctahedron.PlaneIntersection;
 
@@ -32,6 +34,23 @@ public class Octahedron {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.height = height;
+        this.length = length;
+        this.width = width;
+        this.theta = normalizeAngle(theta);
+        this.phi = normalizeAngle(phi);
+        this.alpha = normalizeAngle(alpha);
+        this.radius = (double) (((length * length + width * width) > 2 * height) ? 
+                    Math.sqrt((length * length + width * width) / 4) :
+                    Math.sqrt(height / 2));
+    }
+
+    public Octahedron(Point3D center,
+                      double height, double length, double width,
+                      double theta, double phi, double alpha) {
+        this.x = center.getX();
+        this.y = center.getY();
+        this.z = center.getZ();;
         this.height = height;
         this.length = length;
         this.width = width;
@@ -123,7 +142,7 @@ public class Octahedron {
     @Override
     public String toString() {
         return String.format(
-            "SpatialData[Coord: (%.2f, %.2f, %.2f), Values: (%.2f, %.2f), Angles: (%.2fπ, %.2fπ)]",
+            "SpatialData[Coord: (%.7f, %.7f, %.7f), Values: (%.7f, %.7f), Angles: (%.7f, %.7f)]",
             x, y, z, height, length, theta / Math.PI, phi / Math.PI
         );
     }
@@ -132,10 +151,7 @@ public class Octahedron {
         Point3D сenterOctahedron = new Point3D(this.x, this.y, this.z);
 
         this.pointE = PlaneIntersection.computeVectorPoint(this.height / 2, this.theta, this.phi);
-        this.pointE.sum(сenterOctahedron);
-
         this.pointF = new Point3D(-1 * pointE.getX(), -1 * pointE.getY(), -1 * pointE.getZ());
-        this.pointF.sum(сenterOctahedron);
 
         Point3D[] arrH = PlaneIntersection.findHeightdPoints(-1 * pointE.getX() / pointE.getY());
         Point3D H = arrH[0];
@@ -150,17 +166,33 @@ public class Octahedron {
         Point3D plane = new Point3D(pointE.getX(), pointE.getY(), pointE.getZ());
         Point3D[] arrAB = PlaneIntersection.findPointsABCD(plane, T, this.length / 2);
         this.pointA = arrAB[0];
-        this.pointA.sum(сenterOctahedron);
-
         this.pointB = arrAB[1];
-        this.pointB.sum(сenterOctahedron);
 
         Point3D T1 = new Point3D(-1 * T.getX(), -1 * T.getY(), -1 * T.getZ());
         Point3D[] arrCD = PlaneIntersection.findPointsABCD(plane, T1, this.length / 2);
         this.pointC = arrCD[0];
-        this.pointC.sum(сenterOctahedron);
-
         this.pointD = arrCD[1];
+
+        this.pointE.sum(сenterOctahedron);
+        this.pointA.sum(сenterOctahedron);
+        this.pointB.sum(сenterOctahedron);
+        this.pointC.sum(сenterOctahedron);
         this.pointD.sum(сenterOctahedron);
+        this.pointF.sum(сenterOctahedron);
+    }
+
+    public String getPointsAsLine() {
+        return String.format(Locale.US, "A%s B%s C%s D%s E%s F%s",
+                formatPoint(pointA),
+                formatPoint(pointB),
+                formatPoint(pointC),
+                formatPoint(pointD),
+                formatPoint(pointE),
+                formatPoint(pointF));
+}
+
+    private String formatPoint(Point3D p) {
+        if (p == null) return "(null)";
+        return String.format(Locale.US, "(%.7f, %.7f, %.7f)", p.getX(), p.getY(), p.getZ());
     }
 }

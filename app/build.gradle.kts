@@ -33,6 +33,12 @@ dependencies {
     implementation("jakarta.transaction:jakarta.transaction-api:2.0.1")
     implementation("org.hibernate.orm:hibernate-core:6.2.0.Final")
 
+    // Для класса Pair
+    implementation("org.apache.commons:commons-lang3:3.14.0")
+
+    // график
+    implementation ("org.jfree:jfreechart:1.5.4")
+
     // Тесты
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
     testImplementation("junit:junit:4.13.2")
